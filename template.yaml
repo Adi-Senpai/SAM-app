@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: SAM template for FastAPI Lambda function (Docker image) with API Gateway integration
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 256
+
+Resources:
+  FastAPIFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: fastapi-handler
+      PackageType: Image
+      Description: FastAPI application served through AWS Lambda using Docker image
+      Events:
+        RootPath:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
+            RestApiId: !Ref FastAPIApi
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: .
+      DockerTag: fastapi-lambda
+
+  FastAPIApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      TracingEnabled: true
+      Name: fastapi-api
+
+Outputs:
+  FastAPIFunctionArn:
+    Description: FastAPI Lambda Function ARN
+    Value: !GetAtt FastAPIFunction.Arn
+  
+  FastAPIApiEndpoint:
+    Description: API Gateway endpoint URL for prod environment
+    Value: !Sub 'https://${FastAPIApi}.execute-api.${AWS::Region}.amazonaws.com/prod/'
