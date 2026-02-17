@@ -23,7 +23,7 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: |
+                        script: |-
                           cat /etc/os-release
                           curl -O https://www.rpmfind.net/linux/almalinux/8.10/BaseOS/x86_64/os/Packages/unzip-6.0-48.el8_10.x86_64.rpm
                           rpm -i unzip-6.0-48.el8_10.x86_64.rpm
@@ -33,6 +33,12 @@ pipeline:
                           ./aws/install
 
                           aws --version
+
+                          export AWS_ACCESS_KEY_ID="<+secrets.getValue("aws-accesskey")>
+                          export AWS_SECRET_ACCESS_KEY="<+secrets.getValue("aws-secret")>
+                          export AWS_DEFAULT_REGION="us-east-1"
+
+                          aws sts get-caller-identity
                     environmentVariables: []
                     outputVariables: []
                   timeout: 10m
