@@ -41,6 +41,7 @@ pipeline:
                           aws sts get-caller-identity
 
                           curl -O https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
+                          mkdir sam-installation
                           unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
                           ./sam-installation/install
                           sam --version
