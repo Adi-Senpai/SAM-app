@@ -28,6 +28,14 @@ pipeline:
           execution:
             steps:
               - step:
+                  type: Background
+                  name: Background_1
+                  identifier: Background_1
+                  spec:
+                    connectorRef: docker
+                    image: " docker:29.2.1-dind-alpine3.23"
+                    shell: Sh
+              - step:
                   type: Run
                   name: Run_1
                   identifier: Run_1
