@@ -52,7 +52,7 @@ pipeline:
                     command: docker info
                     privileged: false
                     envVariables:
-                      DOCKER_HOST: tcp://localhost:2375
+                      DOCKER_HOST: tcp://0.0.0.0:2375
   properties:
     ci:
       codebase:
