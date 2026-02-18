@@ -48,7 +48,7 @@ pipeline:
                   spec:
                     connectorRef: docker
                     image: docker:29
-                    shell: Sh
+                    shell: Bash
                     command: |-
                       cat /etc/os-release
                       systemctl status docker
