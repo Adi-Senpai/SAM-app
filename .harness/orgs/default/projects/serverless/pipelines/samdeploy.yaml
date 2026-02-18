@@ -40,7 +40,7 @@ pipeline:
                     command: dockerd --host=tcp://0.0.0.0:2375
                     privileged: true
                     envVariables:
-                      DOCKER_TLS_CERTDIR: "\"\""
+                      DOCKER_TLS_CERTDIR: ""
               - step:
                   type: Run
                   name: Run_1
@@ -53,7 +53,7 @@ pipeline:
                     privileged: true
                     envVariables:
                       DOCKER_HOST: tcp://localhost:2375
-                      DOCKER_TLS_CERTDIR: "\"\""
+                      DOCKER_TLS_CERTDIR: ""
   properties:
     ci:
       codebase:
