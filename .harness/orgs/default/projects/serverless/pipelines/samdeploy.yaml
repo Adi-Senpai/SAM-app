@@ -52,8 +52,6 @@ pipeline:
                     command: |-
                       cat /etc/os-release
                       docker info
-                      curl -O https://www.rpmfind.net/linux/almalinux/8.10/BaseOS/x86_64/os/Packages/unzip-6.0-48.el8_10.x86_64.rpm
-                      rpm -i unzip-6.0-48.el8_10.x86_64.rpm
                       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
                       unzip awscliv2.zip
@@ -77,7 +75,7 @@ pipeline:
                       sam build
                     privileged: true
                     envVariables:
-                      DOCKER_HOST: Dtcp://localhost:2375
+                      DOCKER_HOST: tcp://localhost:2375
                       DOCKER_TLS_CERTDIR: "\"\""
   properties:
     ci:
