@@ -70,7 +70,7 @@ pipeline:
                       unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
                       ./sam-installation/install
                       sam --version
-                      yum install docker -y
+                      dnf install docker -y
                       systemctl status docker
                       systemctl start docker
                       sam build
