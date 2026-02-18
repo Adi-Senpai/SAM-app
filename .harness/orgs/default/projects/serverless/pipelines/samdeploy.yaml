@@ -47,7 +47,7 @@ pipeline:
                   identifier: Run_1
                   spec:
                     connectorRef: docker
-                    image: redhat/ubi9-minimal:latest
+                    image: docker:29
                     shell: Sh
                     command: |-
                       cat /etc/os-release
