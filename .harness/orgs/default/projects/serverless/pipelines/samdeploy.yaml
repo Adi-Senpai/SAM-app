@@ -35,6 +35,10 @@ pipeline:
                     connectorRef: docker
                     image: " docker:29.2.1-dind-alpine3.23"
                     shell: Sh
+                    privileged: true
+                    entrypoint:
+                      - docker-entrypoint.sh
+                      - "--mtu=6000"
               - step:
                   type: Run
                   name: Run_1
