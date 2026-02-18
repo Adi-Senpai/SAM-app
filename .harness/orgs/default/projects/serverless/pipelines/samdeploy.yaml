@@ -74,6 +74,7 @@ pipeline:
                       systemctl status docker
                       systemctl start docker
                       sam build
+                    privileged: true
   properties:
     ci:
       codebase:
