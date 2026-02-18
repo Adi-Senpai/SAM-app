@@ -52,7 +52,7 @@ pipeline:
                     command: docker info
                     privileged: true
                     envVariables:
-                      DOCKER_HOST: tcp://localhost:2375
+                      DOCKER_HOST: tcp://Background_1:2375
                       DOCKER_TLS_CERTDIR: ""
   properties:
     ci:
