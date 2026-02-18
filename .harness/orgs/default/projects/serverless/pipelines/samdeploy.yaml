@@ -24,6 +24,8 @@ pipeline:
               namespace: dev
               automountServiceAccountToken: true
               nodeSelector: {}
+              containerSecurityContext:
+                privileged: true
               os: Linux
           execution:
             steps:
@@ -33,47 +35,21 @@ pipeline:
                   identifier: Background_1
                   spec:
                     connectorRef: docker
-                    image: " docker:29.2.1-dind-alpine3.23"
+                    image: docker:24-dind
                     shell: Sh
+                    command: dockerd --host=tcp://0.0.0.0:2375
                     privileged: true
                     envVariables:
                       DOCKER_TLS_CERTDIR: "\"\""
-                    entrypoint:
-                      - docker-entrypoint.sh
-                      - "--mtu=6000"
               - step:
                   type: Run
                   name: Run_1
                   identifier: Run_1
                   spec:
                     connectorRef: docker
-                    image: docker:29
+                    image: docker:cli
                     shell: Sh
-                    command: |-
-                      cat /etc/os-release
-                      systemctl status docker
-                      docker info
-                      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-                      service docker status
-                      unzip awscliv2.zip
-                      ./aws/install
-
-                      aws --version
-
-                      export AWS_ACCESS_KEY_ID="<+secrets.getValue("aws-accesskey")>"
-                      export AWS_SECRET_ACCESS_KEY="<+secrets.getValue("aws-secret")>"
-                      export AWS_DEFAULT_REGION="us-east-1"
-
-                      aws sts get-caller-identity
-
-                      curl -L https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip -o aws-sam-cli-linux-x86_64.zip
-
-                      mkdir sam-installation
-                      unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
-                      ./sam-installation/install
-                      sam --version
-
-                      sam build
+                    command: docker info
                     privileged: true
                     envVariables:
                       DOCKER_HOST: tcp://localhost:2375
